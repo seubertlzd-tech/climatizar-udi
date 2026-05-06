@@ -885,16 +885,144 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* ── MOBILE NAV MENU ── */
+    .nav-mobile-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-mobile-btn span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .nav-mobile-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-mobile-btn.open span:nth-child(2) { opacity: 0; }
+    .nav-mobile-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(248,250,252,0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1.5rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      display: block;
+      padding: 0.9rem 1rem;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .mobile-menu a:hover { background: var(--ice); color: var(--blue); }
+    .mobile-menu .menu-cta {
+      background: var(--blue);
+      color: white !important;
+      text-align: center;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    /* ── WHATSAPP FLOAT BUTTON ── */
+    .whatsapp-float {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem; right: 1.5rem;
+      z-index: 200;
+      background: #25d366;
+      color: white;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { padding: 1rem 1.2rem; }
       .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; gap: 3rem; }
+      .nav-mobile-btn { display: flex; }
+      .whatsapp-float { display: flex; }
+
+      /* Hero */
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 6rem 1.2rem 3rem;
+        min-height: auto;
+        gap: 0;
+      }
       .hero-visual { display: none; }
-      .services-section, .diff-section, .reviews-section, .info-section, .cta-section { padding: 5rem 1.5rem; }
-      .services-grid, .reviews-grid { grid-template-columns: 1fr; }
-      .diff-grid, .info-grid { grid-template-columns: 1fr; gap: 3rem; }
-      footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+      .hero-title { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+      .hero-sub { font-size: 1rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { justify-content: center; width: 100%; }
+      .hero-stats { gap: 1.5rem; }
+      .hero-stat-number { font-size: 1.5rem; }
+
+      /* Sections */
+      .services-section { padding: 4rem 1.2rem; }
+      .diff-section { padding: 4rem 1.2rem; }
+      .reviews-section { padding: 4rem 1.2rem; }
+      .info-section { padding: 4rem 1.2rem; }
+      .cta-section { padding: 4rem 1.2rem; }
+
+      /* Grids */
+      .services-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .diff-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .info-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+      /* Section text */
+      .section-title { font-size: clamp(1.7rem, 7vw, 2.5rem); }
+      .section-sub { font-size: 0.95rem; margin-bottom: 2.5rem; }
+
+      /* CTA */
+      .cta-btns { flex-direction: column; align-items: center; }
+      .cta-btns .btn { width: 100%; max-width: 320px; justify-content: center; }
+
+      /* Footer */
+      footer { padding: 2rem 1.2rem; flex-direction: column; text-align: center; gap: 0.8rem; }
+
+      /* Service cards */
+      .service-card { padding: 1.5rem; }
+
+      /* Brands grid on mobile */
+      .brands-grid { grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+      .brand-chip { padding: 0.6rem 0.4rem; font-size: 0.75rem; }
+
+      /* Info cards */
+      .info-card { padding: 1rem 1.2rem; }
+
+      /* Hours */
+      .hours-box { padding: 1.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .brands-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-stats { flex-wrap: wrap; gap: 1rem; }
+      .hero-stats > div { flex: 1; min-width: 80px; }
     }
   </style>
 </head>
@@ -911,9 +1039,25 @@
       <li><a href="#diferenciais">Diferenciais</a></li>
       <li><a href="#avaliacoes">Avaliações</a></li>
       <li><a href="#contato">Contato</a></li>
-      <li><a href="tel:+55" class="nav-cta">📞 Ligar</a></li>
+      <li><a href="tel:+5534963516779" class="nav-cta">📞 Ligar</a></li>
     </ul>
+    <button class="nav-mobile-btn" id="mobileBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#servicos">Serviços</a>
+    <a href="#diferenciais">Diferenciais</a>
+    <a href="#avaliacoes">Avaliações</a>
+    <a href="#contato">Contato</a>
+    <a href="https://wa.me/5534963516779" class="menu-cta" target="_blank">💬 Solicitar Orçamento</a>
+    <a href="tel:+5534963516779" class="menu-cta" style="background: var(--blue-dark); margin-top:0.2rem;">📞 (34) 9635-1679</a>
+  </div>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/5534963516779" class="whatsapp-float" target="_blank" title="WhatsApp">💬</a>
 
   <!-- HERO -->
   <section class="hero">
@@ -931,7 +1075,7 @@
         Especialistas em climatização em Uberlândia. Instalação, manutenção e higienização de ar-condicionado com qualidade garantida.
       </p>
       <div class="hero-actions">
-        <a href="https://wa.me/55" class="btn btn-primary" target="_blank">💬 Solicitar Orçamento</a>
+        <a href="https://wa.me/5534963516779" class="btn btn-primary" target="_blank">💬 Solicitar Orçamento</a>
         <a href="#servicos" class="btn btn-ghost">Ver Serviços</a>
       </div>
       <div class="hero-stats">
@@ -1153,7 +1297,7 @@
         <h2 class="section-title">Fale com a<br>gente agora</h2>
         <p class="section-sub">Atendemos em Uberlândia e região. Entre em contato para agendar ou tirar dúvidas.</p>
         <div class="info-cards">
-          <a href="https://wa.me/55" class="info-card" target="_blank">
+          <a href="https://wa.me/5534963516779" class="info-card" target="_blank">
             <div class="info-card-icon">💬</div>
             <div>
               <div class="info-card-label">WhatsApp</div>
@@ -1207,8 +1351,8 @@
       <h2 class="cta-title">Pronto para ter um<br>ambiente climatizado?</h2>
       <p class="cta-sub">Solicite seu orçamento agora — resposta em até 15 minutos!</p>
       <div class="cta-btns">
-        <a href="https://wa.me/55" class="btn btn-white" target="_blank">💬 Orçamento pelo WhatsApp</a>
-        <a href="tel:+55" class="btn btn-outline-white">📞 Ligar agora</a>
+        <a href="https://wa.me/5534963516779" class="btn btn-white" target="_blank">💬 Orçamento pelo WhatsApp</a>
+        <a href="tel:+5534963516779" class="btn btn-outline-white">📞 Ligar agora</a>
       </div>
     </div>
   </section>
@@ -1224,6 +1368,21 @@
   </footer>
 
   <script>
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobileBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileBtn.addEventListener('click', () => {
+      mobileBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    // Close menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileBtn.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
     // Nav scroll shadow
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
